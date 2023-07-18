@@ -1,0 +1,11 @@
+..idea
+venv
+db.sqlite3
+media
+__pycache__
+/__pycache__
+__pycache__/
+.env
+/.env
+.env/
+binance_parser.py

@@ -23,7 +23,6 @@ class AuthorSerializer(serializers.ModelSerializer):
 
 
 class PostSeializer(serializers.ModelSerializer):
-    '''Serializer for post data.'''
     author = serializers.HiddenField(required=False,
                                      default=serializers.CurrentUserDefault(),
                                      )
@@ -54,11 +53,9 @@ class PostSeializer(serializers.ModelSerializer):
 
 
     def get_count_of_likes(self, obj):
-        '''Return the number of likes for a given post.'''
         return Likes.objects.filter(post=obj).count()
 
     def perform_update(self, instance):
-        '''Perform an update on a Post instance.'''
         user = self.context['request'].user
         if instance.author != user:
             raise PermissionDenied('У вас нет прав обновить этот объект!')
@@ -69,7 +66,6 @@ class PostSeializer(serializers.ModelSerializer):
 
 
 class LikesSerializer(serializers.ModelSerializer):
-    '''Serializer for likes data.'''
     author = AuthorSerializer(read_only=True)
 
 

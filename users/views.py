@@ -16,12 +16,9 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 
 
 class SignUp(generics.GenericAPIView):
-    '''API endpoint for registering a new user.'''
     serializer_class = RegisUserSerializer
 
     def post(self, request):
-        '''The `post` method is used to create a new user instance
-using the provided user data.'''
         data = request.data
         serializer = self.serializer_class(data=data)
 
@@ -39,10 +36,8 @@ using the provided user data.'''
 
 
 class SignIn(APIView):
-    '''API endpoint for signing in and checking the status of a user's session.'''
 
     def post(self, request:Request):
-        ''' "post" for signing in a user using their email and password '''
         email = request.data.get('email')
         password = request.data.get('password')
         user = authenticate(email=email,
@@ -62,7 +57,6 @@ class SignIn(APIView):
 
 
     def get(self, request:Request):
-        ''' "get" for checking the status of a user's session'''
         context = {
             "user":str(request.user),
             "auth":str(request.auth),
@@ -75,7 +69,6 @@ class SignIn(APIView):
 
 
 class ProfileView(APIView):
-    '''A view for displaying the user's profile information.'''
     queryset = User.objects.all()
     serializer_class = ProfileSerializer
     authentication_classes = [JWTAuthentication,]
@@ -83,7 +76,6 @@ class ProfileView(APIView):
 
 
     def get(self, request):
-        '''Retrieve and return the user's profile information.'''
         user = request.user
         return Response({'username': user.username,
                          'email': user.email,
@@ -95,7 +87,6 @@ class ProfileView(APIView):
 
 
 class EditProfile(generics.RetrieveUpdateDestroyAPIView):
-    '''API endpoint for updating and deleting a user's profile.'''
     queryset = User.objects.all()
     serializer_class = ProfileSerializer
     authentication_classes = [JWTAuthentication,]

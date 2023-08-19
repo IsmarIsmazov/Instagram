@@ -10,7 +10,6 @@ from users.managers import CustomUseManager
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    '''Custom user model for the Django authentication system.'''
     email = models.EmailField(max_length=25,
                               unique=True,
                               verbose_name="Почта"

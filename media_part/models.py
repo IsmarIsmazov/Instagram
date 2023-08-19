@@ -6,7 +6,6 @@ from users.models import User
 
 
 class Post(models.Model):
-    '''A model representing a social media post.'''
     image = models.ImageField(default=True,
                               upload_to="media",
                               blank=True,
@@ -34,7 +33,6 @@ class Post(models.Model):
 
 
 class Likes(models.Model):
-    '''A model representing a like on a post.'''
     post = models.ForeignKey("media_part.Post",
                              on_delete=models.CASCADE,
                              verbose_name="Пост",

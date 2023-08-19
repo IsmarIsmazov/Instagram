@@ -3,8 +3,6 @@ from rest_framework.permissions import SAFE_METHODS
 
 
 class IsOwnerPermission(permissions.BasePermission):
-    """check if owner """
-
     def has_object_permission(self, request, view, obj):
         if request.method == SAFE_METHODS:
             return True
@@ -13,8 +11,6 @@ class IsOwnerPermission(permissions.BasePermission):
 
 
 class IsOwnerPermissionClass(permissions.BasePermission):
-    """check if owner """
-
     def has_object_permission(self, request, view, obj):
         if request.method == SAFE_METHODS:
             return True

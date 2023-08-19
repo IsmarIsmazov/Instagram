@@ -18,7 +18,6 @@ from users.permissions import IsOwnerPermission, IsOwnerPermissionClass
 
 
 class PostViewSet(viewsets.ModelViewSet):
-    '''API endpoint for viewing and modifying posts.'''
     queryset = Post.objects.all()
     serializer_class = PostSeializer
     permission_classes = [IsOwnerPermission,
@@ -42,7 +41,6 @@ class PostViewSet(viewsets.ModelViewSet):
 
 
 class EditPostView(viewsets.ModelViewSet):
-    '''API endpoint for updating and deleting posts.'''
     queryset = Post.objects.all()
     serializer_class = PostSeializer
     authentication_classes = [JWTAuthentication,]
@@ -52,7 +50,6 @@ class EditPostView(viewsets.ModelViewSet):
 
 
 class AddPostView(generics.GenericAPIView):
-    '''API endpoint for creating new posts.'''
     queryset = Post.objects.all()
     serializer_class = PostSeializer
     permission_classes = [IsOwnerPermission,]
@@ -62,8 +59,6 @@ class AddPostView(generics.GenericAPIView):
 
 
     def post(self, request):
-        '''This API endpoint provides the "post" method for creating a new post
-using the provided post data.'''
         if request.user.is_authenticated:
             serializer = self.get_serializer(data=request.data)
             if serializer.is_valid(raise_exception=True):
@@ -80,7 +75,6 @@ using the provided post data.'''
 
 
 class LikesView(generics.ListAPIView):
-    '''API endpoint for viewing likes on posts.'''
     serializer_class = LikesSerializer
     queryset = Post.objects.all()
     permission_classes = [IsOwnerPermission,]
@@ -91,7 +85,6 @@ class LikesView(generics.ListAPIView):
 
 
 class AddLikeView(APIView):
-    '''API endpoint for creating likes on posts.'''
     serializer_class = LikesSerializer
     permission_classes = [IsOwnerPermission,]
     authentication_classes = [JWTAuthentication,]
@@ -101,8 +94,6 @@ class AddLikeView(APIView):
 
 
     def post(self, request, pk):
-        '''This API endpoint provides a "post" method for creating a like on a post
-        using a POST request.'''
         post = Post.objects.get(pk=pk)
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():

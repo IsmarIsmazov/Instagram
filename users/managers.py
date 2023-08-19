@@ -3,11 +3,8 @@ from django.contrib.auth.base_user import BaseUserManager
 
 
 class CustomUseManager(BaseUserManager):
-    '''Custom manager for the user model.'''
-
 
     def create_user(self, email, password, **extra_fields):
-        '''The "create_user" method normalizes the email, creates a new user '''
         email = self.normalize_email(email)
         user = self.model(
             email=email,
